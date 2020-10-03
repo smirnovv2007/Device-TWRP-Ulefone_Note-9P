@@ -2,7 +2,7 @@
 PRODUCT_RELEASE_NAME := Note_9P
 
 # Inherit from MTK/common_mt676_
-$(call inherit-product, device/MTK/common_mt676_/omni_common_mt676_.mk)
+$(call inherit-product, device/MTK/common_mt676_/common_mt676_.mk)
 
 # Device identifier. This must come after all inclusions
 PRODUCT_BRAND := ulefone
