@@ -7,12 +7,7 @@ LOCAL_PATH := device/ulefone/Note_9P
 # Platform
 TARGET_BOARD_PLATFORM := mt6765
 
-# Bootloader
-TARGET_NO_BOOTLOADER := true
-TARGET_BOOTLOADER_BOARD_NAME := $(TARGET_BOARD_PLATFORM)
-
 # Kernel
-
 BOARD_KERNEL_BASE          := 0x40078000
 BOARD_KERNEL_OFFSET        := 0x00008000
 BOARD_KERNEL_TAGS_OFFSET   := 0x07808000
@@ -27,16 +22,12 @@ BOARD_PREBUILT_DTBOIMAGE := $(LOCAL_PATH)/prebuilt/dtbo
 TARGET_KERNEL_SOURCE := kernel/blu/G90
 TARGET_KERNEL_CONFIG := Note_9p_defconfig
 
-
 # system.prop
 TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
 
 ########
 # TWRP #
 ########
-
-# VERSION
-TW_DEVICE_VERSION := TEST_MRMAZAK_1
 
 # Resolution
 TW_THEME := portrait_hdpi
