@@ -50,7 +50,7 @@ on property:vendor.trustkernel.log.state=ready
 	write /proc/bootprof "tkcore: prepare log file"
 	setprop vendor.trustkernel.log.state enable
 
-service teed /sbin/teed \
+service teed /system/bin/teed \
     --datapath /data/vendor/t6/fs \
     --sptapath /data/vendor/t6/app \
     --systapath /vendor/app/t6 \
