@@ -4,8 +4,6 @@
 import /trustkernel.rc
 
 on init
-    # Somehow AOSP build system hasn't provided a symlink here
-    symlink /system_root/system /system
     # Create a more standard /dev/block layout for our scripts
     symlink /dev/block/platform/bootdevice /dev/block/bootdevice
 
@@ -16,9 +14,6 @@ on init
     setprop crypto.ready 1
 
 on fs
-    export ANDROID_ROOT /system_root
-
-on post-fs
     # Support A/B feature for EMMC and UFS boot region
     symlink /dev/block/sda /dev/block/mmcblk0boot0
     symlink /dev/block/sdb /dev/block/mmcblk0boot1
@@ -58,6 +53,11 @@ service attestation-1-1 /system/bin/vendor.mediatek.hardware.keymaster_attestati
     disabled
     seclabel u:r:recovery:s0
 
+service ashmemd /system/bin/ashmemd
+    class core
+    user nobody
+    group nobody
+    
 on property:crypto.ready=0
     stop keymaster-3-0
     stop gatekeeper-1-0
