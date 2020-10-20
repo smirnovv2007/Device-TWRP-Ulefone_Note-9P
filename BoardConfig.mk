@@ -25,6 +25,12 @@ TARGET_KERNEL_CONFIG := Note_9p_defconfig
 # system.prop
 TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
 
+# RECOVERY
+TARGET_RECOVERY_DEVICE_MODULES += ashmemd_aidl_interface-cpp
+TARGET_RECOVERY_DEVICE_MODULES += libashmemd_client
+TARGET_RECOVERY_DEVICE_MODULES += tzdata
+TARGET_RECOVERY_DEVICE_MODULES += libpuresoftkeymasterdevice
+
 ########
 # TWRP #
 ########
@@ -33,4 +39,7 @@ TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
 TW_THEME := portrait_hdpi
 DEVICE_SCREEN_WIDTH := 720
 DEVICE_SCREEN_HEIGHT := 1520
+TW_RECOVERY_ADDITIONAL_RELINK_BINARY_FILES += $(TARGET_OUT)/usr/share/zoneinfo/tzdata
+TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/libashmemd_client.so $(TARGET_OUT_SHARED_LIBRARIES)/ashmemd_aidl_interface-cpp.so
+TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/libpuresoftkeymasterdevice.so
 
