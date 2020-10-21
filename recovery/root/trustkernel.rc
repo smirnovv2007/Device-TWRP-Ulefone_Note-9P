@@ -1,3 +1,6 @@
+on early-fs
+    start vold
+
 on fs
 	mkdir /mnt/vendor 0700 root root
 	mkdir /mnt/vendor/protect_f 0700 root root
@@ -61,3 +64,4 @@ service teed /system/bin/teed \
 	group root
     disabled
     seclabel u:r:recovery:s0
+

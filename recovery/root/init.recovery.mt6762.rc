@@ -1,5 +1,4 @@
-### NOTE ###
-# must relink teed, keymaster-3-0, gatekeeper-1-0, keymaster_attestation-1-1
+# WIP TWRP INCLUDE LIBASHMEM
 
 import /trustkernel.rc
 
