@@ -7,6 +7,8 @@ on fs
 	mkdir /mnt/vendor/protect_s 0700 root root
 	mkdir /mnt/vendor/nvdata 0700 root root
 	mkdir /mnt/vendor/nvcfg 0700 root root
+	mkdir /data/vendor 0700 root root
+	mkdir /data/vendor/t6 0755 root root
 	mount ext4 /dev/block/platform/bootdevice/by-name/protect1 /mnt/vendor/protect_f
 	mount ext4 /dev/block/platform/bootdevice/by-name/protect2 /mnt/vendor/protect_s
 	mount ext4 /dev/block/platform/bootdevice/by-name/nvdata /mnt/vendor/nvdata
@@ -21,7 +23,17 @@ on fs
 	mkdir /mnt/vendor/protect_f/tee
 	setprop vendor.trustkernel.fs.mode 2
 	setprop vendor.trustkernel.fs.state ready
+	installkey /data
+	install_keyring
+
+	init_user0
 	start teed
+
+# twrp.apex.loaded=true prop is only for devices with dynamic partitions
+# including that prop prevents decryption services from loading
+# when entering fastbootd
+on property:ro.apex.updateable=true
+    start prepdecrypt
 
 on property:vendor.trustkernel.fs.state=ready
 	write /proc/bootprof "tkcore: prepare basic"
@@ -52,6 +64,33 @@ on property:ro.crypto.type=file && property:ro.crypto.state=encrypted
 on property:vendor.trustkernel.log.state=ready
 	write /proc/bootprof "tkcore: prepare log file"
 	setprop vendor.trustkernel.log.state enable
+
+service prepdecrypt /system/bin/prepdecrypt.sh
+    user root
+    group root
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
+    
+service gatekeeper-1-0 /system/bin/android.hardware.gatekeeper@1.0-service
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
+
+service keymaster-4-0 /system/bin/android.hardware.keymaster@4.0-service.trustkernel
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
+
+service attestation-1-1 /system/bin/vendor.mediatek.hardware.keymaster_attestation@1.1-service
+    interface vendor.mediatek.hardware.keymaster_attestation@1.1::IKeymasterDevice default
+    class hal
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
 
 service teed /system/bin/teed \
     --datapath /data/vendor/t6/fs \
