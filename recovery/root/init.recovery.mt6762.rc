@@ -8,8 +8,6 @@ on init
 
     mkdir /vendor/lib64 0700 root root
     mkdir /vendor/lib64/hw 0700 root root
-    symlink /vendor/manifest.xml /system/manifest.xml
-#    start hwservicemanager
     setprop crypto.ready 1
 
 on fs
@@ -22,26 +20,10 @@ on fs
 on property:crypto.ready=0
     stop keymaster-3-0
     stop gatekeeper-1-0
-#    stop servicemanager
     stop attestation-1-1
 
 on property:vendor.sys.listeners.registered=true
     start keymaster-3-0
-#    start servicemanager
     start gatekeeper-1-0
     start attestation-1-1
-    
-#service hwservicemanager /system/bin/hwservicemanager
-#    user root
-#    group root
-#    disabled
-#    onrestart setprop hwservicemanager.ready false
-#    seclabel u:r:recovery:s0
-
-#service servicemanager /system/bin/servicemanager
-#    user root
-#    group root readproc
-#    disabled
-#    seclabel u:r:recovery:s0
-
 
