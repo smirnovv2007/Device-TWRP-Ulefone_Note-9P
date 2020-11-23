@@ -15,7 +15,7 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/omni_Note_9P.mk
+    $(LOCAL_DIR)/omni_Armor_X7.mk
 
 COMMON_LUNCH_CHOICES := \
-    omni_Note_9P-eng
+    omni_Armor_X7-eng
