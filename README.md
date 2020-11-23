@@ -1,1 +1,3 @@
-SIMPLE TWRP TREE FOR ULEFONE NOTE 9P
+TWRP для Ulefone Armor X7
+
+НА ДАННЫЙ МОМЕНТ НАХОДИТСЯ В РАЗРАБОТКЕ!
